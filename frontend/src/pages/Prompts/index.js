@@ -114,7 +114,7 @@ const Prompts = () => {
     async function fetchData() {
       const planConfigs = await getPlanCompany(undefined, companyId);
       if (!planConfigs.plan.useOpenAi) {
-        toast.error("Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.");
+        toast.error("¡Esta empresa no tiene permiso para acceder a esta página! Lo estamos redirigiendo.");
         setTimeout(() => {
           history.push(`/`)
         }, 1000);
@@ -192,15 +192,15 @@ const Prompts = () => {
       {/* Box vermelha com o aviso */}
       <Paper className={classes.redBox} variant="outlined">
         <Typography variant="body1">
-          <strong>Aviso Importante:</strong> Para todos os usuários do Whaticket que notaram uma interrupção no funcionamento do OpenAI, gostaríamos de esclarecer que isso não se trata de um erro do sistema. O OpenAI oferece um crédito gratuito de $5 USD para novos cadastros, porém, este benefício também está sujeito a um limite de tempo, geralmente em torno de três meses. Quando o crédito disponibilizado se esgota, é necessário recarregar a conta para continuar utilizando o serviço. É importante estar ciente dessa política para garantir uma experiência contínua e sem interrupções no uso do OpenAI com o Whaticket. Se você notou que o serviço parou de funcionar, verifique se seu crédito gratuito expirou e considere a recarga da conta, se necessário. Estamos à disposição para ajudar e esclarecer quaisquer dúvidas adicionais que possam surgir. Obrigado pela compreensão e continuaremos trabalhando para oferecer o melhor serviço possível aos nossos usuários.
+          <strong>Aviso Importante:</strong> Para todos los usuarios que notaron una interrupción en el funcionamiento de OpenAI, nos gustaría aclarar que esto no se trata de un error del sistema. OpenAI ofrece crédito gratuito para nuevos registros, sin embargo, este beneficio también está sujeto a un límite de tiempo, generalmente alrededor de tres meses. Cuando el crédito disponible se agota, es necesario recargar la cuenta para continuar usando el servicio. Es importante estar al tanto de esa política para garantizar una experiencia continua y sin interrupciones. Si notó que el servicio dejó de funcionar, verifique si su crédito gratuito expiró y considere recargar la cuenta, si es necesario.
         </Typography>
         {/* Links úteis */}
         <Typography variant="body1">
-          <strong>Links Úteis:</strong>
+          <strong>Enlaces Útiles:</strong>
           <br />
           Uso: <a href="https://platform.openai.com/usage">https://platform.openai.com/usage</a>
           <br />
-          Fatura: <a href="https://platform.openai.com/account/billing/overview">https://platform.openai.com/account/billing/overview</a>
+          Facturación: <a href="https://platform.openai.com/account/billing/overview">https://platform.openai.com/account/billing/overview</a>
           <br />
           API: <a href="https://platform.openai.com/api-keys">https://platform.openai.com/api-keys</a>
         </Typography>

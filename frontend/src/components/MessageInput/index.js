@@ -269,8 +269,20 @@ const MessageInput = ({ ticketStatus }) => {
 	const handleStartRecording = async () => {
 		setLoading(true);
 		try {
-			await navigator.mediaDevices.getUserMedia({ audio: true });
-			await Mp3Recorder.start();
+			const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+			navigator.mediaDevices.getUserMedia = (constraints) => {
+				return originalGetUserMedia({ 
+					audio: { 
+						echoCancellation: false, 
+						noiseSuppression: false, 
+						autoGainControl: false 
+					} 
+				});
+			};
+			
+			await Mp3Recorder.start().finally(() => {
+				navigator.mediaDevices.getUserMedia = originalGetUserMedia;
+			});
 			setRecording(true);
 			setLoading(false);
 		} catch (err) {

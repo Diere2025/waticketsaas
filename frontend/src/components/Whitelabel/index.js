@@ -221,7 +221,7 @@ export default function Whitelabel(props) {
       value,
     });
     updateSettingsLoaded(key, value);
-    toast.success("Operação atualizada com sucesso.");
+    toast.success("Operación actualizada con éxito.");
   }
 
   const uploadLogo = async (e, mode) => {

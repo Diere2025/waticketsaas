@@ -8,7 +8,7 @@ const messages = {
           fail: "Erro ao criar usuário. Verifique os dados informados.",
         },
         form: {
-          name: "Nome",
+          name: "Nombre",
           email: "Email",
           password: "Senha",
         },
@@ -30,23 +30,23 @@ const messages = {
       },
       plans: {
         form: {
-          name: "Nome",
+          name: "Nombre",
           users: "Usuários",
           connections: "Conexões",
           campaigns: "Campanhas",
           schedules: "Agendamentos",
           enabled: "Habilitadas",
-          disabled: "Desabilitadas",
+          disabled: "Deshabilitadas",
           clear: "Cancelar",
           delete: "Excluir",
-          save: "Salvar",
-          yes: "Sim",
-          no: "Não",
+          save: "Guardar",
+          yes: "Sí",
+          no: "No",
           money: "R$",
         },
       },
       companies: {
-        title: "Cadastrar Empresa",
+        title: "Registrar Empresa",
         form: {
           name: "Nome da Empresa",
           plan: "Plano",
@@ -109,7 +109,7 @@ const messages = {
           },
         },
         table: {
-          name: "Nome",
+          name: "Nombre",
 		  number: "Número",
           status: "Status",
           lastUpdate: "Última atualização",
@@ -126,14 +126,14 @@ const messages = {
 		 tabs: {
           general: "Geral",
           messages: "Mensagens",
-          assessments: "Avaliações",
+          assessments: "Evaluaciones",
           integrations: "Integrações",
           schedules: "Horário de expediente",
 		 },
         form: {
-          name: "Nome",
+          name: "Nombre",
           default: "Padrão",
-          sendIdQueue: "Fila",
+          sendIdQueue: "Departamento",
           timeSendQueue: "Redirecionar para fila em X minutos",
           queueRedirection: "Redirecionamento de Fila",
 		  outOfHoursMessage: "Mensagem de fora de expediente",
@@ -145,11 +145,11 @@ const messages = {
           expiresInactiveMessage: "Mensagem de encerramento por inatividade",
 		  greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
-		  sendIdQueue: "Fila",
+		  sendIdQueue: "Departamento",
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
         success: "WhatsApp salvo com sucesso.",
@@ -186,7 +186,7 @@ const messages = {
           delete: "Excluir Todos Contatos"
         },
         table: {
-          name: "Nome",
+          name: "Nombre",
           whatsapp: "WhatsApp",
           email: "Email",
           actions: "Ações",
@@ -200,7 +200,7 @@ const messages = {
         form: {
           id: "ID",
           type: "Tipo",
-          name: "Nome",
+          name: "Nombre",
           projectName: "Nome do Projeto",
           language: "Linguagem",
           jsonContent: "JsonContent",
@@ -215,7 +215,7 @@ const messages = {
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
           test: "Testar Bot",
         },
@@ -235,7 +235,7 @@ const messages = {
           },
       promptModal: {
         form: {
-          name: "Nome",
+          name: "Nombre",
           prompt: "Prompt",
           voice: "Voz",
           max_tokens: "Máximo de Tokens na resposta",
@@ -252,14 +252,14 @@ const messages = {
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
       },
       prompts: {
         title: "Prompts",
         table: {
-          name: "Nome",
+          name: "Nombre",
           queue: "Setor/Fila",
           max_tokens: "Máximo Tokens Resposta",
           actions: "Ações",
@@ -280,7 +280,7 @@ const messages = {
         form: {
           mainInfo: "Dados do contato",
           extraInfo: "Informações adicionais",
-          name: "Nome",
+          name: "Nombre",
           number: "Número do Whatsapp",
           email: "Email",
           extraName: "Nome do campo",
@@ -290,7 +290,7 @@ const messages = {
         buttons: {
           addExtraInfo: "Adicionar informação",
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
         success: "Contato salvo com sucesso.",
@@ -304,7 +304,7 @@ const messages = {
 		  "deleteTitle": "Excluir",
 		},
         form: {
-          name: "Nome",
+          name: "Nombre",
           color: "Cor",
           greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
@@ -316,7 +316,7 @@ const messages = {
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
 		  attach: "Anexar Arquivo",
         },
@@ -327,7 +327,7 @@ const messages = {
           edit: "Editar usuário",
         },
         form: {
-          name: "Nome",
+          name: "Nombre",
           email: "Email",
           password: "Senha",
           profile: "Perfil",
@@ -335,11 +335,11 @@ const messages = {
 
           allTicket: "Ticket Sem Fila [Invisível]",
           allTicketEnabled: "Habilitado",
-          allTicketDesabled: "Desabilitado",
+          allTicketDesabled: "Deshabilitado",
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
         success: "Usuário salvo com sucesso.",
@@ -357,7 +357,7 @@ const messages = {
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
         success: "Agendamento salvo com sucesso.",
@@ -368,12 +368,12 @@ const messages = {
           edit: "Editar Tag",
         },
         form: {
-          name: "Nome",
+          name: "Nombre",
           color: "Cor",
         },
         buttons: {
           okAdd: "Adicionar",
-          okEdit: "Salvar",
+          okEdit: "Guardar",
           cancel: "Cancelar",
         },
         success: "Tag salvo com sucesso.",
@@ -446,13 +446,13 @@ const messages = {
         },
       },
       ticketsList: {
-        pendingHeader: "Aguardando",
+        pendingHeader: "En Espera",
         assignedHeader: "Atendendo",
         noTicketsTitle: "Nada aqui!",
         noTicketsMessage:
           "Nenhum atendimento encontrado com esse status ou termo pesquisado",
         buttons: {
-          accept: "Aceitar",
+          accept: "Aceptar",
           closed: "Finalizar",
 		  transfer: "Transferir",
           reopen: "Reabrir"
@@ -463,7 +463,7 @@ const messages = {
         fieldLabel: "Digite para pesquisar o contato",
         add: "Adicionar",
         buttons: {
-          ok: "Salvar",
+          ok: "Guardar",
           cancel: "Cancelar",
         },
       },
@@ -471,7 +471,7 @@ const messages = {
         listItems: {
           dashboard: "Dashboard",
           connections: "Conexões",
-          tickets: "Atendimentos",
+          tickets: "Atenciones",
           quickMessages: "Respostas Rápidas",
           contacts: "Contatos",
           queues: "Filas & Chatbot",
@@ -479,7 +479,7 @@ const messages = {
           administration: "Administração",
           users: "Usuários",
           settings: "Configurações",
-          helps: "Ajuda",
+          helps: "Ayuda",
           messagesAPI: "API",
           schedules: "Agendamentos",
           campaigns: "Campanhas",
@@ -492,7 +492,7 @@ const messages = {
           queueIntegration: "Integrações",
         },
         appBar: {
-          notRegister:"Sem notificações",
+          notRegister:"Sin notificaciones",
           user: {
             profile: "Perfil",
             logout: "Salir",
@@ -504,7 +504,7 @@ const messages = {
         table: {
           id: "ID",
           type: "Tipo",
-          name: "Nome",
+          name: "Nombre",
           projectName: "Nome do Projeto",
           language: "Linguagem",
           lastUpdate: "Ultima atualização",
@@ -530,7 +530,7 @@ const messages = {
           NPS: "NPS",
           status: "Status",
           whatsapp: "Conexão",
-          queue: "Fila",
+          queue: "Departamento",
           actions: "Ações",
           lastMessage: "Últ. Mensagem",
           contact: "Cliente",
@@ -544,7 +544,7 @@ const messages = {
       files: {
         title: "Lista de arquivos",
         table: {
-          name: "Nome",
+          name: "Nombre",
           contacts: "Contatos",
           actions: "Ação",
         },
@@ -602,7 +602,7 @@ const messages = {
           title: "Mensagem Rápida",
           shortcode: "Atalho",
           message: "Resposta",
-          save: "Salvar",
+          save: "Guardar",
           cancel: "Cancelar",
           geral: "Permitir editar",
           add: "Adicionar",
@@ -622,7 +622,7 @@ const messages = {
         label: "Variavéis disponíveis",
         vars: {
           contactFirstName: "Primeiro Nome",
-          contactName: "Nome",
+          contactName: "Nombre",
           greeting: "Saudação",
           protocolNumber: "Protocolo",
           date: "Data",
@@ -632,7 +632,7 @@ const messages = {
       contactLists: {
         title: "Listas de Contatos",
         table: {
-          name: "Nome",
+          name: "Nombre",
           contacts: "Contatos",
           actions: "Ações",
         },
@@ -640,7 +640,7 @@ const messages = {
           add: "Nova Lista",
         },
         dialog: {
-          name: "Nome",
+          name: "Nombre",
           company: "Empresa",
           okEdit: "Editar",
           okAdd: "Adicionar",
@@ -665,7 +665,7 @@ const messages = {
           import: "Importar",
         },
         dialog: {
-          name: "Nome",
+          name: "Nombre",
           number: "Número",
           whatsapp: "Whatsapp",
           email: "E-mail",
@@ -676,7 +676,7 @@ const messages = {
           cancel: "Cancelar",
         },
         table: {
-          name: "Nome",
+          name: "Nombre",
           number: "Número",
           whatsapp: "Whatsapp",
           email: "E-mail",
@@ -700,7 +700,7 @@ const messages = {
           contactLists: "Listas de Contatos",
         },
         table: {
-          name: "Nome",
+          name: "Nombre",
           whatsapp: "Conexão",
           contactList: "Lista de Contatos",
           status: "Status",
@@ -714,7 +714,7 @@ const messages = {
           update: "Editar Campanha",
           readonly: "Apenas Visualização",
           form: {
-            name: "Nome",
+            name: "Nombre",
             message1: "Mensagem 1",
             message2: "Mensagem 2",
             message3: "Mensagem 3",
@@ -809,7 +809,7 @@ const messages = {
         title: "Filas & Chatbot",
         table: {
 		  id:"ID",
-          name: "Nome",
+          name: "Nombre",
           color: "Cor",
           greeting: "Mensagem de saudação",
           actions: "Ações",
@@ -831,7 +831,7 @@ const messages = {
         title: "Usuários",
         table: {
 		  id: "ID",
-          name: "Nome",
+          name: "Nombre",
 		  status: "Status",
           email: "Email",
           profile: "Perfil",
@@ -886,7 +886,7 @@ const messages = {
 		  deleteAllTitle: "Deletar Todos",
         },
         table: {
-          name: "Nome",
+          name: "Nombre",
           color: "Cor",
           tickets: "Registros Tagdos",
           actions: "Ações",
@@ -907,8 +907,8 @@ const messages = {
           userCreation: {
             name: "Criação de usuário",
             options: {
-              enabled: "Ativado",
-              disabled: "Desativado",
+              enabled: "Activado",
+              disabled: "Desactivado",
             },
           },
         },
@@ -920,7 +920,7 @@ const messages = {
             return: "Retornar",
             resolve: "Resolver",
             reopen: "Reabrir",
-            accept: "Aceitar",
+            accept: "Aceptar",
           },
         },
       },
@@ -943,7 +943,7 @@ const messages = {
           edit: "Editar lista de arquivos",
         },
         buttons: {
-          okAdd: "Salvar",
+          okAdd: "Guardar",
           okEdit: "Editar",
           cancel: "Cancelar",
           fileOptions: "Adicionar arquivo",

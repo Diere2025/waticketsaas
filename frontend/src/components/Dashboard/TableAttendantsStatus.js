@@ -49,7 +49,7 @@ export default function TableAttendantsStatus(props) {
         return attendants.map((a, k) => (
             <TableRow key={k}>
                 <TableCell>{a.name}</TableCell>
-                <TableCell align="center" title="1 - Insatisfeito, 2 - Satisfeito, 3 - Muito Satisfeito" className={classes.pointer}>
+                <TableCell align="center" title="1 - Insatisfecho, 2 - Satisfecho, 3 - Muy Satisfecho" className={classes.pointer}>
                     <RatingBox rating={a.rating} />
                 </TableCell>
                 <TableCell align="center">{formatTime(a.avgSupportTime, 2)}</TableCell>
@@ -72,10 +72,10 @@ export default function TableAttendantsStatus(props) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Nome</TableCell>
-                        <TableCell align="center">Avaliações</TableCell>
-                        <TableCell align="center">T.M. de Atendimento</TableCell>
-                        <TableCell align="center">Status (Atual)</TableCell>
+                        <TableCell>Nombre</TableCell>
+                        <TableCell align="center">Evaluaciones</TableCell>
+                        <TableCell align="center">T.M. de Atención</TableCell>
+                        <TableCell align="center">Estado (Actual)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

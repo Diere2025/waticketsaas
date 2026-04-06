@@ -25,8 +25,15 @@ const SendWhatsAppMessage = async ({
   const wbot = await GetTicketWbot(ticket);
 
 
-  const number = `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"
-    }`;
+  let isLid = ticket.contact.number.length >= 14;
+  let number = `${ticket.contact.number}@${ticket.isGroup ? "g.us" : isLid ? "lid" : "s.whatsapp.net"}`;
+
+  if (!ticket.isGroup && !isLid) {
+      const isNumberExit = await wbot.onWhatsApp(number);
+      if (isNumberExit && isNumberExit.length > 0 && isNumberExit[0].exists) {
+          number = isNumberExit[0].jid;
+      }
+  }
 
 
   if (quotedMsg) {

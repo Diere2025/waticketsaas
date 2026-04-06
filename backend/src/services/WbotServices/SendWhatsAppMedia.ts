@@ -9,6 +9,7 @@ import GetTicketWbot from "../../helpers/GetTicketWbot";
 import Ticket from "../../models/Ticket";
 import mime from "mime-types";
 import formatBody from "../../helpers/Mustache";
+import CreateMessageService from "../MessageServices/CreateMessageService";
 
 interface Request {
   media: Express.Multer.File;
@@ -23,7 +24,7 @@ const processAudio = async (audio: string): Promise<string> => {
   const outputAudio = `${publicFolder}/${new Date().getTime()}.mp3`;
   return new Promise((resolve, reject) => {
     exec(
-      `${ffmpegPath.path} -i ${audio} -vn -ab 128k -ar 44100 -f ipod ${outputAudio} -y`,
+      `"${ffmpegPath.path}" -i "${audio}" -vn -ab 128k -ar 44100 -f ipod "${outputAudio}" -y`,
       (error, _stdout, _stderr) => {
         if (error) reject(error);
         fs.unlinkSync(audio);
@@ -37,7 +38,7 @@ const processAudioFile = async (audio: string): Promise<string> => {
   const outputAudio = `${publicFolder}/${new Date().getTime()}.mp3`;
   return new Promise((resolve, reject) => {
     exec(
-      `${ffmpegPath.path} -i ${audio} -vn -ar 44100 -ac 2 -b:a 192k ${outputAudio}`,
+      `"${ffmpegPath.path}" -i "${audio}" -vn -ar 44100 -ac 2 -b:a 192k "${outputAudio}"`,
       (error, _stdout, _stderr) => {
         if (error) reject(error);
         fs.unlinkSync(audio);
@@ -141,6 +142,7 @@ const SendWhatsAppMedia = async ({
       const typeAudio = media.originalname.includes("audio-record-site");
       if (typeAudio) {
         const convert = await processAudio(media.path);
+        media.filename = convert.split('/').pop() || media.filename;
         options = {
           audio: fs.readFileSync(convert),
           mimetype: typeAudio ? "audio/mp4" : media.mimetype,
@@ -149,6 +151,7 @@ const SendWhatsAppMedia = async ({
         };
       } else {
         const convert = await processAudioFile(media.path);
+        media.filename = convert.split('/').pop() || media.filename;
         options = {
           audio: fs.readFileSync(convert),
           mimetype: typeAudio ? "audio/mp4" : media.mimetype,
@@ -179,14 +182,45 @@ const SendWhatsAppMedia = async ({
       };
     }
 
+    let isLid = ticket.contact.number.length >= 14;
+    let number = `${ticket.contact.number}@${ticket.isGroup ? "g.us" : isLid ? "lid" : "s.whatsapp.net"}`;
+
+    if (!ticket.isGroup && !isLid) {
+      const isNumberExit = await wbot.onWhatsApp(number);
+      if (isNumberExit && isNumberExit.length > 0 && isNumberExit[0].exists) {
+          number = isNumberExit[0].jid;
+      }
+    }
+
     const sentMessage = await wbot.sendMessage(
-      `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"}`,
+      number,
       {
         ...options
       }
     );
 
-    await ticket.update({ lastMessage: bodyMessage });
+    await ticket.update({ lastMessage: bodyMessage || "" });
+
+    const messageData = {
+      id: sentMessage.key.id,
+      ticketId: ticket.id,
+      contactId: undefined,
+      body: bodyMessage || "",
+      fromMe: true,
+      read: true,
+      mediaUrl: media.filename,
+      mediaType: typeMessage,
+      quotedMsgId: null,
+      ack: 1, // Pending or Sent
+      remoteJid: sentMessage.key.remoteJid,
+      participant: sentMessage.key.participant,
+      dataJson: JSON.stringify(sentMessage),
+    };
+
+    await CreateMessageService({
+      messageData,
+      companyId: ticket.companyId,
+    });
 
     return sentMessage;
   } catch (err) {

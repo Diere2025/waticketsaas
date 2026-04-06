@@ -124,7 +124,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
     const handleSavePrompt = async values => {
         const promptData = { ...values, voice: selectedVoice };
         if (!values.queueId) {
-            toastError("Informe o setor");
+            toastError("Por favor, seleccione un departamento");
             return;
         }
         try {

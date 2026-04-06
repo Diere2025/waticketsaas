@@ -71,10 +71,10 @@ const useStyles = makeStyles((theme) => ({
 
 const QueueSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  color: Yup.string().min(3, "Too Short!").max(9, "Too Long!").required(),
+    .min(2, "¡Muy corto!")
+    .max(50, "¡Muy largo!")
+    .required("Requerido"),
+  color: Yup.string().min(3, "¡Muy corto!").max(9, "¡Muy largo!").required("Requerido"),
   greetingMessage: Yup.string(),
 });
 
@@ -231,7 +231,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
   };
 
   const handleSaveSchedules = async (values) => {
-    toast.success("Clique em salvar para registar as alterações");
+    toast.success("Haga clic en guardar para registrar los cambios");
     setSchedules(values);
     setTab(0);
   };
@@ -274,8 +274,8 @@ const QueueModal = ({ open, onClose, queueId }) => {
           onChange={(_, v) => setTab(v)}
           aria-label="disabled tabs example"
         >
-          <Tab label="Dados da Fila" />
-          {schedulesEnabled && <Tab label="Horários de Atendimento" />}
+          <Tab label="Datos de el departamento" />
+          {schedulesEnabled && <Tab label="Horarios de Atención" />}
         </Tabs>
         {tab === 0 && (
           <Paper>
@@ -378,7 +378,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
                           labelId="integrationId-selection-label"
                           value={values.integrationId || ""}
                         >
-                          <MenuItem value={""} >{"Nenhum"}</MenuItem>
+                          <MenuItem value={""} >{"Ninguna"}</MenuItem>
                           {integrations.map((integration) => (
                             <MenuItem key={integration.id} value={integration.id}>
                               {integration.name}
@@ -495,7 +495,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
                       disabled={isSubmitting}
                       variant="outlined"
                     >
-                      {i18n.t("queueModal.buttons.attach")}
+                      "Adjuntar Archivo"
                     </Button>
                   )}
                     <Button
@@ -535,7 +535,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
               loading={false}
               onSubmit={handleSaveSchedules}
               initialValues={schedules}
-              labelSaveButton="Adicionar"
+              labelSaveButton="Añadir"
             />
           </Paper>
         )}

@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
       card00: {
@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card1: {
@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card2: {
@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card3: {
@@ -167,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card4: {
@@ -176,7 +176,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card5: {
@@ -185,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card6: {
@@ -194,7 +194,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card7: {
@@ -203,7 +203,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card8: {
@@ -212,7 +212,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   card9: {
@@ -221,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     height: "100%",
-    backgroundColor: "#2f0549",
+    backgroundColor: "#3B82F6",
     color: "#eee",
   },
   fixedHeightPaper2: {
@@ -360,7 +360,7 @@ const Dashboard = () => {
         <>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Inicial"
+              label="Fecha Inicial"
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
@@ -372,7 +372,7 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Final"
+              label="Fecha Final"
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
@@ -403,7 +403,7 @@ const Dashboard = () => {
               <MenuItem value={60}>Últimos 60 dias</MenuItem>
               <MenuItem value={90}>Últimos 90 dias</MenuItem>
             </Select>
-            <FormHelperText>Selecione o período desejado</FormHelperText>
+            <FormHelperText>Selecciona el periodo deseado</FormHelperText>
           </FormControl>
         </Grid>
       );
@@ -427,7 +427,7 @@ const Dashboard = () => {
                 <MenuItem value={1}>Filtro por Data</MenuItem>
                 <MenuItem value={2}>Filtro por Período</MenuItem>
               </Select>
-              <FormHelperText>Selecione o período desejado</FormHelperText>
+              <FormHelperText>Selecciona el periodo deseado</FormHelperText>
             </FormControl>
           </Grid>
 
@@ -460,7 +460,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Conexões Ativas
+                    Conexiones Activas
                   </Typography>
                   <Grid item>
                     <Typography
@@ -538,7 +538,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Em Conversa
+                    En Conversación
                   </Typography>
                   <Grid item>
                     <Typography
@@ -575,7 +575,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Aguardando
+                    En Espera
                   </Typography>
                   <Grid item>
                     <Typography
@@ -691,7 +691,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Novos Contatos
+                    Nuevos Contactos
                   </Typography>
                   <Grid item>
                     <Typography
@@ -729,7 +729,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    T.M. de Conversa
+                    T.M. de Conversación
                   </Typography>
                   <Grid item>
                     <Typography

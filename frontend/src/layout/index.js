@@ -42,7 +42,7 @@ import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,11 +54,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.fancyBackground,
     '& .MuiButton-outlinedPrimary': {
       color: theme.mode === 'light' ? '#FFF' : '#FFF',
-	  backgroundColor: theme.mode === 'light' ? '#2f0549' : '#1c1c1c',
+	  backgroundColor: theme.mode === 'light' ? '#3B82F6' : '#1c1c1c',
       //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
     },
     '& .MuiTab-textColorPrimary.Mui-selected': {
-      color: theme.mode === 'light' ? '#2f0549' : '#FFF',
+      color: theme.mode === 'light' ? '#3B82F6' : '#FFF',
     }
   },
   avatar: {
@@ -266,7 +266,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
     socket.on(`company-${companyId}-auth`, (data) => {
       if (data.user.id === +userId) {
-        toastError("Sua conta foi acessada em outro computador.");
+        toastError("Tu cuenta ha sido abierta en otro equipo.");
         setTimeout(() => {
           localStorage.clear();
           window.location.reload();
@@ -394,11 +394,11 @@ const LoggedInLayout = ({ children, themeToggle }) => {
             {/* {greaterThenSm && user?.profile === "admin" && getDateAndDifDays(user?.company?.dueDate).difData < 7 ? ( */}
             {greaterThenSm && user?.profile === "admin" && user?.company?.dueDate ? (
               <>
-                Olá <b>{user.name}</b>, Bem vindo a <b>{user?.company?.name}</b>! (Ativo até {dateToClient(user?.company?.dueDate)})
+                Hola <b>{user.name}</b>, Bienvenido a <b>{user?.company?.name}</b>! (Ativo até {dateToClient(user?.company?.dueDate)})
               </>
             ) : (
               <>
-                Olá  <b>{user.name}</b>, Bem vindo a <b>{user?.company?.name}</b>!
+                Hola  <b>{user.name}</b>, Bienvenido a <b>{user?.company?.name}</b>!
               </>
             )}
           </Typography>

@@ -162,12 +162,12 @@ const Invoices = () => {
     var dias = moment.duration(diff).asDays();    
     const status = record.status;
     if (status === "paid") {
-      return "Pago";
+      return "Pagada";
     }
     if (dias < 0) {
-      return "Vencido";
+      return "Vencida";
     } else {
-      return "Em Aberto"
+      return "Abierta"
     }
 
   }
@@ -183,7 +183,7 @@ const Invoices = () => {
 
       ></SubscriptionModal>
       <MainHeader>
-        <Title>Faturas</Title>
+        <Title>Facturas</Title>
       </MainHeader>
       <Paper
         className={classes.mainPaper}
@@ -194,11 +194,11 @@ const Invoices = () => {
           <TableHead>
             <TableRow>
               <TableCell align="center">Id</TableCell>
-              <TableCell align="center">Detalhes</TableCell>
+              <TableCell align="center">Detalles</TableCell>
               <TableCell align="center">Valor</TableCell>
-              <TableCell align="center">Data Venc.</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Ação</TableCell>
+              <TableCell align="center">Fecha Venc.</TableCell>
+              <TableCell align="center">Estado</TableCell>
+              <TableCell align="center">Acción</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -211,7 +211,7 @@ const Invoices = () => {
                   <TableCell align="center">{moment(invoices.dueDate).format("DD/MM/YYYY")}</TableCell>
                   <TableCell style={{ fontWeight: 'bold' }} align="center">{rowStatus(invoices)}</TableCell>
                   <TableCell align="center">
-                    {rowStatus(invoices) !== "Pago" ?
+                    {rowStatus(invoices) !== "Pagada" ?
                       <Button
                         size="small"
                         variant="outlined"
@@ -226,7 +226,7 @@ const Invoices = () => {
                         /* color="secondary"
                         disabled */
                       >
-                        PAGO 
+                        PAGADA
                       </Button>}
 
                   </TableCell>

@@ -192,7 +192,7 @@ const Dashboard = () => {
         <>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Inicial"
+              label="Fecha Inicial"
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
@@ -204,7 +204,7 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Final"
+              label="Fecha Final"
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
@@ -321,7 +321,7 @@ const Dashboard = () => {
           <Grid item xs={12} sm={6} md={4}>
             <CardCounter
               icon={<SpeedIcon fontSize="inherit" />}
-              title="T.M. de Atendimento"
+              title="T.M. de Atención"
               value={formatTime(counters.avgSupportTime)}
               loading={loading}
             />

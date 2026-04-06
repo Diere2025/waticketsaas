@@ -307,8 +307,8 @@ export function PlanManagerForm(props) {
                                     name="useInternal"
                                     margin="dense"
                                 >
-                                    <MenuItem value={false}>Sim</MenuItem>
-                                    <MenuItem value={true}>Não</MenuItem>
+                                    <MenuItem value={false}>Sí</MenuItem>
+                                    <MenuItem value={true}>No</MenuItem>
                                 </Field>
                             </FormControl>
                         </Grid>
@@ -373,7 +373,7 @@ export function PlansManagerGrid(props) {
     };
 
     const renderInternal = (row) => {
-        return row.useInternal === false ? "Sim" : "Não";
+        return row.useInternal === false ? "Sí" : "No";
     };
 
     return (

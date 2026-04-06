@@ -110,11 +110,13 @@ const messages = {
         },
 		table: {
   name: "Nombre",
+  number: "Número",
   status: "Estado",
   lastUpdate: "Última actualización",
   default: "Predeterminado",
   actions: "Acciones",
   session: "Sesión",
+},
 },
 whatsappModal: {
   title: {
@@ -131,17 +133,17 @@ whatsappModal: {
   form: {
     name: "Nombre",
     default: "Predeterminado",
-    sendIdQueue: "Fila",
-    timeSendQueue: "Redireccionar a cola en X minutos",
-    queueRedirection: "Redirección de cola",
+    sendIdQueue: "Departamento",
+    timeSendQueue: "Redireccionar a departamento en X minutos",
+    queueRedirection: "Redirección de departamento",
     outOfHoursMessage: "Mensaje de fuera de expediente",
-    queueRedirectionDesc: "Seleccione una fila para redirigir los contactos que no tienen cola",
+    queueRedirectionDesc: "Seleccione un departamento para redirigir los contactos que no tienen departamento",
     prompt: "Prompt",
     expiresTicket: "Cerrar chats abiertos después de X minutos",
     expiresInactiveMessage: "Mensaje de cierre por inactividad",
     greetingMessage: "Mensaje de saludo",
     complationMessage: "Mensaje de conclusión",
-    sendIdQueue: "Fila",
+    sendIdQueue: "Departamento",
   },
   buttons: {
     okAdd: "Agregar",
@@ -249,7 +251,7 @@ prompts: {
   title: "Prompts",
   table: {
     name: "Nombre",
-    queue: "Sector/Cola",
+    queue: "Sector/Departamento",
     max_tokens: "Máximo Tokens Respuesta",
     actions: "Acciones",
   },
@@ -286,8 +288,8 @@ contactModal: {
 },
 queueModal: {
   title: {
-    add: "Agregar cola",
-    edit: "Editar cola",
+    add: "Agregar departamento",
+    edit: "Editar departamento",
   },
   form: {
     name: "Nombre",
@@ -297,7 +299,7 @@ queueModal: {
     outOfHoursMessage: "Mensaje de fuera de horario",
     ratingMessage: "Mensaje de evaluación",
     token: "Token",
-    orderQueue: "Orden de la cola (Bot)",
+    orderQueue: "Orden de el departamento (Bot)",
     integrationId: "Integración",
   },
   buttons: {
@@ -318,7 +320,7 @@ userModal: {
     profile: "Perfil",
     whatsapp: "Conexión Predeterminada",
 
-    allTicket: "Ticket Sin Cola [Invisible]",
+    allTicket: "Ticket Sin Departamento [Invisible]",
     allTicketEnabled: "Habilitado",
     allTicketDesabled: "Deshabilitado",
   },
@@ -378,7 +380,7 @@ ticketsManager: {
   },
 },
 ticketsQueueSelect: {
-  placeholder: "Colas",
+  placeholder: "Departamentos",
 },
 tickets: {
   toasts: {
@@ -402,8 +404,8 @@ tickets: {
 transferTicketModal: {
     title: "Transferir Ticket",
     fieldLabel: "Escribe para buscar usuarios",
-    fieldQueueLabel: "Transferir a cola",
-    fieldQueuePlaceholder: "Seleccione una cola",
+    fieldQueueLabel: "Transferir a departamento",
+    fieldQueuePlaceholder: "Seleccione un departamento",
     noOptions: "No se encontraron usuarios con ese nombre",
     buttons: {
       ok: "Transferir",
@@ -419,7 +421,8 @@ transferTicketModal: {
     buttons: {
       accept: "Aceptar",
       closed: "Finalizar",
-      reopen: "Reabrir"
+      reopen: "Reabrir",
+      transfer: "Transferir"
     },
   },
   newTicketModal: {
@@ -438,7 +441,7 @@ transferTicketModal: {
       tickets: "Tickets",
       quickMessages: "Respuestas Rápidas",
       contacts: "Contactos",
-      queues: "Colas y Chatbot",
+      queues: "Departamentos y Chatbot",
       tags: "Etiquetas",
       administration: "Administración",
       users: "Usuarios",
@@ -452,6 +455,7 @@ transferTicketModal: {
       financeiro: "Financiero",
       files: "Lista de archivos",
       prompts: "Open.Ai",
+      reports: "Reportes",
       queueIntegration: "Integraciones",
     },
     appBar: {
@@ -480,7 +484,7 @@ transferTicketModal: {
     confirmationModal: {
       deleteTitle: "Eliminar",
       deleteMessage:
-        "¿Estás seguro? ¡Esta acción no se puede deshacer! y se eliminará de las colas y conexiones vinculadas",
+        "¿Estás seguro? ¡Esta acción no se puede deshacer! y se eliminará de las departamentos y conexiones vinculadas",
     },
   },
   files: {
@@ -747,26 +751,26 @@ transferTicketModal: {
     title: "Configuraciones de Campañas",
   },
   queues: {
-    title: "Colas y Chatbot",
+    title: "Departamentos y Chatbot",
     table: {
       id:"ID",
       name: "Nombre",
       color: "Color",
       greeting: "Mensaje de bienvenida",
       actions: "Acciones",
-      orderQueue: "Orden de la cola (bot)",
+      orderQueue: "Orden de el departamento (bot)",
     },
     buttons: {
-      add: "Agregar cola",
+      add: "Agregar departamento",
     },
     confirmationModal: {
       deleteTitle: "Eliminar",
       deleteMessage:
-        "¿Estás seguro? ¡Esta acción no se puede deshacer! Los tickets de esta cola seguirán existiendo pero ya no tendrán ninguna cola asignada.",
+        "¿Estás seguro? ¡Esta acción no se puede deshacer! Los tickets de esta departamento seguirán existiendo pero ya no tendrán ningun departamento asignada.",
     },
   },
   queueSelect: {
-    inputLabel: "Colas",
+    inputLabel: "Departamentos",
   },
   users: {
     title: "Usuarios",
@@ -786,7 +790,7 @@ transferTicketModal: {
     confirmationModal: {
       deleteTitle: "Eliminar",
       deleteMessage:
-        "Todos los datos del usuario se perderán. Los tickets abiertos de este usuario se moverán a la cola.",
+        "Todos los datos del usuario se perderán. Los tickets abiertos de este usuario se moverán a el departamento.",
     },
   },
   helps: {
@@ -962,11 +966,10 @@ transferTicketModal: {
     ERR_QUEUE_COLOR_ALREADY_EXISTS:
       "Este color ya está en uso, elige otro.",
     ERR_WAPP_GREETING_REQUIRED:
-      "El saludo es obligatorio cuando hay más de una cola.",
+      "El saludo es obligatorio cuando hay más de un departamento.",
       },
     },
   },
- },
 };
 
 export { messages };

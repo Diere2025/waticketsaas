@@ -31,6 +31,8 @@ import {
 import moment from "moment";
 //import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 import { Op } from "sequelize";
 import { debounce } from "../../helpers/Debounce";
 import formatBody from "../../helpers/Mustache";
@@ -731,14 +733,40 @@ const handleOpenAi = async (
     }
     messagesOpenAi.push({ role: "user", content: bodyMessage! });
 
-    const chat = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo-1106",
-      messages: messagesOpenAi,
-      max_tokens: prompt.maxTokens,
-      temperature: prompt.temperature
-    });
-
-    let response = chat.data.choices[0].message?.content;
+        let response = "";
+    if (isGemini) {
+      try {
+        const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+        const history = [];
+        if (promptSystem) {
+          history.push({ role: "user", parts: [{ text: promptSystem }] });
+          history.push({ role: "model", parts: [{ text: "Comprendido." }] });
+        }
+        for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
+          const message = messages[i];
+          if (message.mediaType === "chat") {
+            history.push({
+              role: message.fromMe ? "model" : "user",
+              parts: [{ text: message.body }]
+            });
+          }
+        }
+        const chatGem = model.startChat({ history });
+        const result = await chatGem.sendMessage(bodyMessage);
+        response = result.response.text();
+      } catch (err) {
+        console.error("Gemini Error:", err);
+        response = "Error con Gemini API.";
+      }
+    } else {
+      const chat = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo-1106",
+        messages: messagesOpenAi,
+        max_tokens: prompt.maxTokens,
+        temperature: prompt.temperature
+      });
+      response = chat.data?.choices?.[0]?.message?.content;
+    }
 
     if (response?.includes("Ação: Transferir para o setor de atendimento")) {
       await transferQueue(prompt.queueId, ticket, contact);
@@ -781,10 +809,14 @@ const handleOpenAi = async (
     const mediaUrl = mediaSent!.mediaUrl!.split("/").pop();
     const file = fs.createReadStream(`${publicFolder}/${mediaUrl}`) as any;
     
-    const transcription = await openai.audio.transcriptions.create({
+    let transcriptionText = '[Audio]';
+if(!isGemini){
+const transcription = await openai.audio.transcriptions.create({
       model: "whisper-1",
       file: file,
     });
+transcriptionText = transcription.text;
+}
 
     messagesOpenAi = [];
     messagesOpenAi.push({ role: "system", content: promptSystem });
@@ -802,15 +834,17 @@ const handleOpenAi = async (
         }
       }
     }
-    messagesOpenAi.push({ role: "user", content: transcription.text });
-    const chat = await openai.chat.completions.create({
+    messagesOpenAi.push({ role: "user", content: transcriptionText });
+    let response = '';
+if(isGemini){ response='[Audio model fallido]'; } else {
+const chat = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-1106",
       messages: messagesOpenAi,
       max_tokens: prompt.maxTokens,
       temperature: prompt.temperature
     });
-    let response = chat.data.choices[0].message?.content;
-
+    response = chat.data.choices[0].message?.content;
+}
     if (response?.includes("Ação: Transferir para o setor de atendimento")) {
       await transferQueue(prompt.queueId, ticket, contact);
       response = response
