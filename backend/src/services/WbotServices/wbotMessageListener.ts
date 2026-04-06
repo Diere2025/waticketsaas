@@ -677,6 +677,9 @@ const handleOpenAi = async (
   }
 
   if (!prompt) return;
+  const isGemini = (prompt.prompt && prompt.prompt.toLowerCase().includes("gemini")) || (prompt.name && prompt.name.toLowerCase().includes("gemini"));
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI(prompt.apiKey);
 
   if (msg.messageStubType) return;
 
