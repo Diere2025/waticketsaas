@@ -678,8 +678,9 @@ const handleOpenAi = async (
 
   if (!prompt) return;
   const isGemini = (prompt.prompt && prompt.prompt.toLowerCase().includes("gemini")) || (prompt.name && prompt.name.toLowerCase().includes("gemini"));
+  const isGemmaLocal = (prompt.prompt && prompt.prompt.toLowerCase().includes("gemma")) || (prompt.name && prompt.name.toLowerCase().includes("gemma"));
   const { GoogleGenerativeAI } = require("@google/generative-ai");
-  const genAI = new GoogleGenerativeAI(prompt.apiKey);
+  const genAI = new GoogleGenerativeAI("AIzaSyDzImVtVAlbagG7fRf_qvBnfSe7MxpHXcU");
 
   if (msg.messageStubType) return;
 
@@ -695,10 +696,15 @@ const handleOpenAi = async (
   const openAiIndex = sessionsOpenAi.findIndex(s => s.id === ticket.id);
 
   if (openAiIndex === -1) {
-    // const configuration = new Configuration({
-    //   apiKey: prompt.apiKey
-    // });
-    openai = new OpenAI({ apiKey: prompt.apiKey });
+    if (isGemmaLocal) {
+      // Configuration for local Ollama running Gemma
+      openai = new OpenAI({
+        apiKey: "ollama", // Dummy API key required by the SDK
+        baseURL: "http://localhost:11434/v1",
+      });
+    } else {
+      openai = new OpenAI({ apiKey: prompt.apiKey });
+    }
     openai.id = ticket.id;
     sessionsOpenAi.push(openai);
   } else {
@@ -739,27 +745,63 @@ const handleOpenAi = async (
         let response = "";
     if (isGemini) {
       try {
-        const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+        const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro-preview" });
         const history = [];
         if (promptSystem) {
           history.push({ role: "user", parts: [{ text: promptSystem }] });
           history.push({ role: "model", parts: [{ text: "Comprendido." }] });
         }
+        
+        let collapsedHistory = [];
+        let currentRole = null;
+        let currentParts = [];
+
         for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
           const message = messages[i];
           if (message.mediaType === "chat") {
-            history.push({
-              role: message.fromMe ? "model" : "user",
-              parts: [{ text: message.body }]
-            });
+            const role = message.fromMe ? "model" : "user";
+            if (role === currentRole) {
+              currentParts.push({ text: message.body });
+            } else {
+              if (currentRole !== null) {
+                collapsedHistory.push({ role: currentRole, parts: currentParts });
+              }
+              currentRole = role;
+              currentParts = [{ text: message.body }];
+            }
           }
         }
+        if (currentRole !== null) {
+          collapsedHistory.push({ role: currentRole, parts: currentParts });
+        }
+
+        // Ensure we don't start with a 'model' message, as Gemini API requires starting with a 'user'
+        if (collapsedHistory.length > 0 && collapsedHistory[0].role === "model") {
+          collapsedHistory.shift();
+        }
+
+        history.push(...collapsedHistory);
+
         const chatGem = model.startChat({ history });
         const result = await chatGem.sendMessage(bodyMessage);
         response = result.response.text();
       } catch (err) {
         console.error("Gemini Error:", err);
+        require('fs').writeFileSync('gemini_error.txt', err.toString() + "\n" + (err.stack || '') + "\n" + JSON.stringify(err));
         response = "Error con Gemini API.";
+      }
+    } else if (isGemmaLocal) {
+      try {
+        const chat = await openai.chat.completions.create({
+          model: "gemma:2b", // Usará el modelo Gemma más liviano a través de Ollama
+          messages: messagesOpenAi,
+          max_tokens: prompt.maxTokens,
+          temperature: prompt.temperature
+        });
+        response = chat.choices[0].message?.content;
+      } catch (err) {
+        console.error("Gemma Local Error:", err);
+        response = "Error con Gemma Local (Ollama no iniciado o no se encontró el modelo).";
       }
     } else {
       const chat = await openai.chat.completions.create({
@@ -776,6 +818,25 @@ const handleOpenAi = async (
       response = response
         .replace("Ação: Transferir para o setor de atendimento", "")
         .trim();
+    }
+
+    console.log("Raw AI Response:", response);
+    const tagMatch = response?.match(/(?:Ação|Acci[óo]n):\s+Etiquetar\s+([^\r\n]+)/i);
+    if (tagMatch) {
+      try {
+        const tagString = tagMatch[1].trim();
+        console.log("Parsed Tag:", tagString);
+        const Tag = require("../../models/Tag").default;
+        const TicketTag = require("../../models/TicketTag").default;
+        const [tag] = await Tag.findOrCreate({
+          where: { name: tagString, companyId: ticket.companyId },
+          defaults: { color: "#A4CCCC", kanban: 0 }
+        });
+        await TicketTag.findOrCreate({ where: { ticketId: ticket.id, tagId: tag.id } });
+      } catch (err) {
+        console.error("Error creating tag:", err);
+      }
+      response = response.replace(tagMatch[0], "").trim();
     }
 
     if (prompt.voice === "texto") {
@@ -853,6 +914,25 @@ const chat = await openai.chat.completions.create({
       response = response
         .replace("Ação: Transferir para o setor de atendimento", "")
         .trim();
+    }
+
+    console.log("Raw AI Audio Response:", response);
+    const tagMatchAudio = response?.match(/(?:Ação|Acci[óo]n):\s+Etiquetar\s+([^\r\n]+)/i);
+    if (tagMatchAudio) {
+      try {
+        const tagString = tagMatchAudio[1].trim();
+        console.log("Parsed Audio Tag:", tagString);
+        const Tag = require("../../models/Tag").default;
+        const TicketTag = require("../../models/TicketTag").default;
+        const [tag] = await Tag.findOrCreate({
+          where: { name: tagString, companyId: ticket.companyId },
+          defaults: { color: "#A4CCCC", kanban: 0 }
+        });
+        await TicketTag.findOrCreate({ where: { ticketId: ticket.id, tagId: tag.id } });
+      } catch (err) {
+        console.error("Error creating tag:", err);
+      }
+      response = response.replace(tagMatchAudio[0], "").trim();
     }
     if (prompt.voice === "texto") {
       console.log('responseVoice2', response)

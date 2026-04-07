@@ -1,0 +1,12 @@
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash:generateContent: [404 Not Found] models/gemini-3.1-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash:generateContent: [404 Not Found] models/gemini-3.1-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (D:\GitHub\waticketsaas\backend\node_modules\@google\generative-ai\dist\index.js:434:11)
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at makeRequest (D:\GitHub\waticketsaas\backend\node_modules\@google\generative-ai\dist\index.js:403:9)
+    at generateContent (D:\GitHub\waticketsaas\backend\node_modules\@google\generative-ai\dist\index.js:867:22)
+    at ChatSession.sendMessage (D:\GitHub\waticketsaas\backend\node_modules\@google\generative-ai\dist\index.js:1210:9)
+    at handleOpenAi (D:\GitHub\waticketsaas\backend\src\services\WbotServices\wbotMessageListener.ts:786:24)
+    at verifyQueue (D:\GitHub\waticketsaas\backend\src\services\WbotServices\wbotMessageListener.ts:1270:7)
+    at handleMessage (D:\GitHub\waticketsaas\backend\src\services\WbotServices\wbotMessageListener.ts:2310:7)
+    at D:\GitHub\waticketsaas\backend\src\services\WbotServices\wbotMessageListener.ts:2576:11
+{"status":404,"statusText":"Not Found"}

@@ -189,23 +189,17 @@ const Prompts = () => {
 
   return (
     <MainContainer>
-      {/* Box vermelha com o aviso */}
+      {/* Box de información general sobre IA */}
       <Paper className={classes.redBox} variant="outlined">
         <Typography variant="body1">
-          <strong>Aviso Importante:</strong> Para todos los usuarios que notaron una interrupción en el funcionamiento de OpenAI, nos gustaría aclarar que esto no se trata de un error del sistema. OpenAI ofrece crédito gratuito para nuevos registros, sin embargo, este beneficio también está sujeto a un límite de tiempo, generalmente alrededor de tres meses. Cuando el crédito disponible se agota, es necesario recargar la cuenta para continuar usando el servicio. Es importante estar al tanto de esa política para garantizar una experiencia continua y sin interrupciones. Si notó que el servicio dejó de funcionar, verifique si su crédito gratuito expiró y considere recargar la cuenta, si es necesario.
+          <strong>Aviso Importante:</strong> El uso de modelos de Inteligencia Artificial (como OpenAI o Google Gemini) requiere de una API Key válida con crédito o permisos activos. Si notas que la IA deja de responder, verifica que tu servicio no haya alcanzado el límite de cuotas y que la tarjeta o sistema de facturación del proveedor de su API no presente problemas de saldo.
         </Typography>
-        {/* Links úteis */}
         <Typography variant="body1">
-          <strong>Enlaces Útiles:</strong>
           <br />
-          Uso: <a href="https://platform.openai.com/usage">https://platform.openai.com/usage</a>
-          <br />
-          Facturación: <a href="https://platform.openai.com/account/billing/overview">https://platform.openai.com/account/billing/overview</a>
-          <br />
-          API: <a href="https://platform.openai.com/api-keys">https://platform.openai.com/api-keys</a>
+          <strong>Nota sobre Gemini:</strong> Para usar la IA de Google, incluye la palabra <strong>"Gemini"</strong> en el nombre o en las instrucciones del bot. Asegúrate de pegar tu API key respectiva al modelo cuando agregues un Prompt.
         </Typography>
       </Paper>
-      {/* Fim da box vermelha */}
+      {/* Fin del box de información */}
 
       <ConfirmationModal
         title={
