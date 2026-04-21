@@ -264,7 +264,7 @@ export default function Options(props) {
       key: 'allowregister',
       value,
     });
-    toast.success('Operação atualizada com sucesso.');
+    toast.success('Operación actualizada con éxito');
     setLoadingallowregister(false);
   }
   
@@ -286,7 +286,7 @@ export default function Options(props) {
       key: 'viewregister',
       value,
     });
-    toast.success('Operação atualizada com sucesso.');
+    toast.success('Operación actualizada con éxito');
     setLoadingviewregister(false);
   }
   
@@ -297,7 +297,7 @@ export default function Options(props) {
       key: 'trial',
       value,
     });
-    toast.success('Operação atualizada com sucesso.');
+    toast.success('Operación actualizada con éxito');
     setLoadingtrial(false);
   }
 
@@ -310,7 +310,7 @@ export default function Options(props) {
       value,
     });
     //toast.success("Oraçãpeo atualizada com sucesso.");
-    toast.success('Operação atualizada com sucesso.', {
+    toast.success('Operación actualizada con éxito', {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -657,7 +657,7 @@ export default function Options(props) {
                     <MenuItem value={'enabled'}>Sí</MenuItem>
                   </Select>
                   <FormHelperText>
-                    {loadingallowregister && 'Atualizando...'}
+                    {loadingallowregister && 'Actualizando...'}
                   </FormHelperText>
                 </FormControl>
               </Grid>
@@ -678,7 +678,7 @@ export default function Options(props) {
                     <MenuItem value={'enabled'}>Sí</MenuItem>
                   </Select>
                   <FormHelperText>
-                    {loadingviewregister && 'Atualizando...'}
+                    {loadingviewregister && 'Actualizando...'}
                   </FormHelperText>
                 </FormControl>
               </Grid>
@@ -702,7 +702,7 @@ export default function Options(props) {
                     <MenuItem value={'7'}>7</MenuItem>
                   </Select>
                   <FormHelperText>
-                    {loadingtrial && 'Atualizando...'}
+                    {loadingtrial && 'Actualizando...'}
                   </FormHelperText>
                 </FormControl>
               </Grid>
@@ -724,7 +724,7 @@ export default function Options(props) {
         >
           <Tab
 
-            label="INTEGRAÇÕES" />
+            label="INTEGRACIONES" />
 
         </Tabs>
 
@@ -750,7 +750,7 @@ export default function Options(props) {
               id="ipixc"
               name="ipixc"
               margin="dense"
-              label="IP do IXC"
+              label="IP de IXC"
               variant="outlined"
               value={ipixcType}
               onChange={async (e) => {
@@ -769,7 +769,7 @@ export default function Options(props) {
               id="tokenixc"
               name="tokenixc"
               margin="dense"
-              label="Token do IXC"
+              label="Token de IXC"
               variant="outlined"
               value={tokenixcType}
               onChange={async (e) => {

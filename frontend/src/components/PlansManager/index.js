@@ -281,11 +281,11 @@ export function PlanManagerForm(props) {
                         {/* INTEGRACOES */}
                         <Grid xs={12} sm={8} md={2} item>
                             <FormControl margin="dense" variant="outlined" fullWidth>
-                                <InputLabel htmlFor="useIntegrations-selection">Integrações</InputLabel>
+                                <InputLabel htmlFor="useIntegrations-selection">Integraciones</InputLabel>
                                 <Field
                                     as={Select}
                                     id="useIntegrations-selection"
-                                    label="Integrações"
+                                    label="Integraciones"
                                     labelId="useIntegrations-selection-label"
                                     name="useIntegrations"
                                     margin="dense"
@@ -398,8 +398,8 @@ export function PlansManagerGrid(props) {
                         <TableCell align="center">API Externa</TableCell>
                         <TableCell align="center">Kanban</TableCell>
                         <TableCell align="center">Open.Ai</TableCell>
-                        <TableCell align="center">Integrações</TableCell>
-						<TableCell align="center">Plano Interno</TableCell>
+                        <TableCell align="center">Integraciones</TableCell>
+						<TableCell align="center">Plan Interno</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

@@ -84,6 +84,8 @@ interface ImessageUpsert {
   type: MessageUpsertType;
 }
 
+const processingMessages = new Set<string>();
+
 interface IMe {
   name: string;
   id: string;
@@ -680,7 +682,7 @@ const handleOpenAi = async (
   const isGemini = (prompt.prompt && prompt.prompt.toLowerCase().includes("gemini")) || (prompt.name && prompt.name.toLowerCase().includes("gemini"));
   const isGemmaLocal = (prompt.prompt && prompt.prompt.toLowerCase().includes("gemma")) || (prompt.name && prompt.name.toLowerCase().includes("gemma"));
   const { GoogleGenerativeAI } = require("@google/generative-ai");
-  const genAI = new GoogleGenerativeAI("AIzaSyDzImVtVAlbagG7fRf_qvBnfSe7MxpHXcU");
+  const genAI = new GoogleGenerativeAI(prompt.apiKey || process.env.GEMINI_API_KEY || "");
 
   if (msg.messageStubType) return;
 
@@ -711,11 +713,13 @@ const handleOpenAi = async (
     openai = sessionsOpenAi[openAiIndex];
   }
 
-  const messages = await Message.findAll({
+  const messagesDb = await Message.findAll({
     where: { ticketId: ticket.id },
-    order: [["createdAt", "ASC"]],
+    order: [["createdAt", "DESC"]],
     limit: prompt.maxMessages
   });
+  
+  const messages = messagesDb.reverse();
 
   const promptSystem = `Nas respostas utilize o nome ${sanitizeName(contact.name || "Amigo(a)")} para identificar o cliente.\nSua resposta deve usar no máximo ${prompt.maxTokens}
      tokens e cuide para não truncar o final.\nSempre que possível, mencione o nome dele para ser mais personalizado o atendimento e mais educado. Quando a resposta requer uma transferência para o setor de atendimento, comece sua resposta com 'Ação: Transferir para o setor de atendimento'.\n
@@ -745,7 +749,7 @@ const handleOpenAi = async (
         let response = "";
     if (isGemini) {
       try {
-        const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro-preview" });
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
         const history = [];
         if (promptSystem) {
           history.push({ role: "user", parts: [{ text: promptSystem }] });
@@ -841,10 +845,33 @@ const handleOpenAi = async (
 
     if (prompt.voice === "texto") {
       console.log('responseVoice', response)
-      const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
-        text: response!
-      });
-      await verifyMessage(sentMessage!, ticket, contact);
+      
+      let imageUrl = null;
+      const imageMatch = response?.match(/\[(?:Imagen|Image|Imagem):\s*(https?:\/\/[^\]]+)\]/i);
+      if (imageMatch) {
+        imageUrl = imageMatch[1];
+        
+        // Si la URL es de un visualizador de Google Drive, la convertimos a enlace de descarga directa
+        const driveMatch = imageUrl.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (driveMatch) {
+          imageUrl = `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
+        }
+        
+        response = response.replace(imageMatch[0], "").trim();
+      }
+
+      if (imageUrl) {
+        const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
+          image: { url: imageUrl },
+          caption: response!
+        });
+        await verifyMessage(sentMessage!, ticket, contact);
+      } else {
+        const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
+          text: response!
+        });
+        await verifyMessage(sentMessage!, ticket, contact);
+      }
     } else {
       const fileNameWithOutExtension = `${ticket.id}_${Date.now()}`;
       convertTextToSpeechAndSaveToFile(
@@ -2249,6 +2276,7 @@ const handleMessage = async (
       !isNil(whatsapp.promptId)
     ) {
       await handleOpenAi(msg, wbot, ticket, contact, mediaSent);
+      return;
     }
 
     //integraçao na conexao
@@ -2280,6 +2308,7 @@ const handleMessage = async (
 
     ) {
       await handleOpenAi(msg, wbot, ticket, contact, mediaSent);
+      return;
     }
 
     if (
@@ -2565,6 +2594,13 @@ const wbotMessageListener = async (wbot: Session, companyId: number): Promise<vo
       if (!messages) return;
 
       messages.forEach(async (message: proto.IWebMessageInfo) => {
+
+        if (processingMessages.has(message.key.id!)) return;
+        processingMessages.add(message.key.id!);
+
+        setTimeout(() => {
+          processingMessages.delete(message.key.id!);
+        }, 30000);
 
         const messageExists = await Message.count({
           where: { id: message.key.id!, companyId }
